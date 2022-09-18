@@ -8,8 +8,10 @@ def main():
     """Main function."""
     logger = TracebackLogger()
     logger.log({'test': 'test'})
-    print(logger.logged_data[0].data)
-    print(logger.logged_data[0].traceback)
+    logger.save_logs('./test.json')
+    # print(logger.logged_data[0].as_dict())
+    # print(logger.logged_data[0].data)
+    # print(logger.logged_data[0].traceback)
 
 
 if __name__ == '__main__':
