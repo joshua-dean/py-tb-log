@@ -1,4 +1,4 @@
-from tb_logger import TracebackLogger
+from tb_logger.tb_logger import TracebackLogger
 
 def call_main():
     """Call main function."""
