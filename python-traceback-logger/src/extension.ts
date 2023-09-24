@@ -1,6 +1,8 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { ALL_COMMANDS } from './commands';
+import { EXTENSION_ID } from './constants';
 // import { EC2 } from "aws-sdk";
 
 var workspace = vscode.workspace;
@@ -9,8 +11,16 @@ let global_response: Promise<any>;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-    // const ec2Client = new EC2({ region: "us-east-1" });
-    // global_response = ec2Client.describeInstances({}).promise();
+
+    // Register all commands
+    for (let [command_name, command] of Object.entries(ALL_COMMANDS)) {
+        context.subscriptions.push(
+            vscode.commands.registerCommand(
+                `${EXTENSION_ID}.${command_name}`,
+                command
+            )
+        );
+    }
 
     // Use the console to output diagnostic information (console.log) and errors (console.error)
     // This line of code will only be executed once when your extension is activated
@@ -30,21 +40,6 @@ export function activate(context: vscode.ExtensionContext) {
     // Delete all cases of 'tb_logger.log'
     context.subscriptions.push(
         vscode.commands.registerCommand('python-traceback-logger.deleteLogs', async () => {
-            vscode.window.showInformationMessage('testCommand invoked')
-            const editor = vscode.window.activeTextEditor;
-            if (editor) {
-                vscode.window.showInformationMessage('editor exists')
-                const document = editor.document;
-                const text = document.getText();
-                const new_text = text.replace(/tb_logger.log/g, "");
-                const full_range = new vscode.Range(
-                    document.positionAt(0),
-                    document.positionAt(text.length)
-                );
-                await editor.edit(editBuilder => {
-                    editBuilder.replace(full_range, new_text);
-                });
-            }
         })
     );
 
