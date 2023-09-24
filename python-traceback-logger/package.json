@@ -17,11 +17,15 @@
         "commands": [
             {
                 "command": "python-traceback-logger.testLoaded",
-                "title": "Python Traceback Logger: Test Loaded"
+                "title": "PTL: Test Loaded"
             },
             {
                 "command": "python-traceback-logger.deleteAllLogs",
-                "title": "Python Traceback Logger: Delete All Logs"
+                "title": "PTL: Delete All Logs"
+            },
+            {
+                "command": "python-traceback-logger.colorFirstLinePurple",
+                "title": "PTL: Color First Line Purple"
             }
         ]
     },

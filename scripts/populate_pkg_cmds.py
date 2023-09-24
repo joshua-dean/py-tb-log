@@ -7,7 +7,7 @@ from pathlib import Path
 from dataclasses import dataclass 
 
 COMMAND_PREFIX = "python-traceback-logger"
-TITLE_PREFIX = "Python Traceback Logger:"
+TITLE_PREFIX = "PTL:"
 
 @dataclass 
 class ExtensionCmd:

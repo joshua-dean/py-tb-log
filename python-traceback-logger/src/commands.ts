@@ -3,13 +3,18 @@
  */
 import * as vscode from 'vscode';
 
-
+/**
+ * Test that the extension is loaded.
+ */
 async function testLoaded() {
     vscode.window.showInformationMessage('testLoaded invoked')
     vscode.window.showInformationMessage("bruh");
 }
 
 
+/**
+ * Delete all instances of "tb_logger.log" from the active editor.
+ */
 async function deleteAllLogs() {
     vscode.window.showInformationMessage('deleteAllLogs invoked')
     const editor = vscode.window.activeTextEditor;
@@ -26,7 +31,22 @@ async function deleteAllLogs() {
             editBuilder.replace(full_range, new_text);
         });
     }
+}
 
+
+/**
+ * Color the first line of the active editor purple.
+ */
+async function colorFirstLinePurple() {
+    vscode.window.showInformationMessage('colorFirstLine invoked')
+    const editor = vscode.window.activeTextEditor;
+
+    editor?.setDecorations(vscode.window.createTextEditorDecorationType({
+        backgroundColor: 'rgba(255,0,255,0.3)',
+        overviewRulerColor: 'rgba(255,0,255,1)',
+        overviewRulerLane: vscode.OverviewRulerLane.Right,
+        isWholeLine: true
+    }), [new vscode.Range(new vscode.Position(0, 0), new vscode.Position(0, 10))]);
 }
 
 
@@ -43,7 +63,8 @@ async function deleteAllLogs() {
 
 const ALL_COMMANDS: Object = {
     testLoaded,
-    deleteAllLogs
+    deleteAllLogs,
+    colorFirstLinePurple
 };
 
 

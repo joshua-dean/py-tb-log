@@ -7,7 +7,7 @@ tb_logger = TracebackLogger()
 # TODO:
  
 def slice_even_chars( 
-    str_to_slice: str  
+    str_to_slice: str   
 ):
     """Slice every even-indexed character in a string."""
     tb_logger.log({"str_to_slice": str_to_slice})
@@ -16,17 +16,16 @@ def slice_even_chars(
 
 tb_logger.log({"str_to_slice": None})
 
-       
 if __name__ == "__main__":
     tb_logger.log({"str_to_slice": None})
     strs_to_slice = [
         "spaghetti",
         "man",
-        "milk_man",
+        "milk_man",     
         "dan",
         "dori"
     ]
-
+ 
     for str_to_slice in strs_to_slice:
         slice_even_chars(str_to_slice)
     
