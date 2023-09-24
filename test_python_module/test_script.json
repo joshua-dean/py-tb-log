@@ -1,0 +1,47 @@
+[
+    {
+        "data": {
+            "str_to_slice": "spaghetti"
+        },
+        "traceback": [
+            "test_script.py: line 28 in <module>",
+            "test_script.py: line 12 in slice_even_chars"
+        ]
+    },
+    {
+        "data": {
+            "str_to_slice": "man"
+        },
+        "traceback": [
+            "test_script.py: line 28 in <module>",
+            "test_script.py: line 12 in slice_even_chars"
+        ]
+    },
+    {
+        "data": {
+            "str_to_slice": "milk_man"
+        },
+        "traceback": [
+            "test_script.py: line 28 in <module>",
+            "test_script.py: line 12 in slice_even_chars"
+        ]
+    },
+    {
+        "data": {
+            "str_to_slice": "dan"
+        },
+        "traceback": [
+            "test_script.py: line 28 in <module>",
+            "test_script.py: line 12 in slice_even_chars"
+        ]
+    },
+    {
+        "data": {
+            "str_to_slice": "dori"
+        },
+        "traceback": [
+            "test_script.py: line 28 in <module>",
+            "test_script.py: line 12 in slice_even_chars"
+        ]
+    }
+]
