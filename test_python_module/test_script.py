@@ -4,18 +4,21 @@ from pathlib import Path
 
 tb_logger = TracebackLogger()
 
-
-def slice_even_chars(
-    str_to_slice: str
+# TODO:
+ 
+def slice_even_chars( 
+    str_to_slice: str  
 ):
     """Slice every even-indexed character in a string."""
     tb_logger.log({"str_to_slice": str_to_slice})
     even_chars = str_to_slice[::2]
     return str_to_slice[::2]
 
+tb_logger.log({"str_to_slice": None})
 
-
+       
 if __name__ == "__main__":
+    tb_logger.log({"str_to_slice": None})
     strs_to_slice = [
         "spaghetti",
         "man",

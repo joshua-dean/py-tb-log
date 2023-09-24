@@ -9,13 +9,31 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "python-traceback-logger.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "python-traceback-logger.deleteLogs",
+        "title": "Delete Logs"
+      },
+      {
+        "command": "python-traceback-logger.colorFirstLine",
+        "title": "Color First Line Purple"
+      },
+      {
+        "command": "python-traceback-logger.colorLogs",
+        "title": "Color Logs"
+      },
+      {
+        "command": "python-traceback-logger.manualUpdateHighlights",
+        "title": "Manual Update Highlights"
       }
     ]
   },
