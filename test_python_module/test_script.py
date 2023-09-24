@@ -4,7 +4,6 @@ from pathlib import Path
 
 tb_logger = TracebackLogger()
 
-# TODO:
  
 def slice_even_chars( 
     str_to_slice: str   

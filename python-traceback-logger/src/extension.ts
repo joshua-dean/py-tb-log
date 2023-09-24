@@ -5,36 +5,16 @@
 import * as vscode from 'vscode';
 import { ALL_COMMANDS } from './commands';
 import { EXTENSION_ID } from './constants';
-import { decorationOptionsForMatchesInCurrentEditor, matchesInCurrentEditor } from './utils/vscode_utils';
+import { matchesInCurrentEditor } from './utils/vscode_utils';
 
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient/node';
-import * as path from 'path';
+/*
+I'm not entirely sure how language servers work, so I'm not sure if I can tap into whatever one
+is already runnning and use that for type checking. 
+If not, we'd have to bundle an existing language server or something.
 
-
-// bruh mode
-import { Uri, TextDocument, Position, CompletionContext, CancellationToken, CompletionItem, CompletionList } from 'vscode';
-
-interface PylanceApi {
-    client?: {
-        sendRequest: Function;
-        isEnabled(): boolean;
-        start(): Promise<void>;
-        stop(): Promise<void>;
-    };
-    notebook?: {
-        registerJupyterPythonPathFunction(func: (uri: Uri) => Promise<string | undefined>): void;
-        registerGetNotebookUriForTextDocumentUriFunction(func: (textDocumentUri: Uri) => Uri | undefined): void;
-        getCompletionItems(
-            document: TextDocument,
-            position: Position,
-            context: CompletionContext,
-            token: CancellationToken,
-        ): Promise<CompletionItem[] | CompletionList | undefined>;
-    };
-}
-// end bruh mode
-
-
+Type checking would be nice, but in reality isn't needed for this application.
+Git history and a record of the logs is sufficient for the desired functionality.
+*/
 
 /**
  * Activate the extension. 
@@ -74,55 +54,6 @@ export function activate(context: vscode.ExtensionContext) {
         );
     }
 
-    // Get LanguageClient from pylance
-    const PYLANCE_EXT_ID = 'ms-python.vscode-pylance';
-    const pylance_ext = vscode.extensions.getExtension(PYLANCE_EXT_ID);
-    let pylance_api: PylanceApi | undefined = undefined;
-    const api = pylance_ext?.exports;
-    if(api && api.client && api.client.isEnabled()){
-        pylance_api = api;
-        pylance_api!.client!.start();
-        console.log('yyyy')
-    }
-    const languageServerFolder = pylance_ext ? pylance_ext.extensionPath : '';
-    const bundlePath = path.join(languageServerFolder, 'dist', 'server.bundle.js');
-    const modulePath = bundlePath;
-    const debugOptions = { execArgv: ['--nolazy', '--inspect=6600'] };
-
-    // If the extension is launched in debug mode, then the debug server options are used.
-    const serverOptions: ServerOptions = {
-        run: {
-            module: bundlePath,
-            transport: TransportKind.ipc,
-            args: ['--node-ipc'],
-        },
-        debug: {
-            module: modulePath,
-            transport: TransportKind.ipc,
-            options: debugOptions,
-            args: ['--node-ipc'],
-        },
-    };
-    const clientOptions: LanguageClientOptions = {
-        // documentSelector: [
-        //     { scheme: 'file', language: 'python' },
-        //     { scheme: 'untitled', language: 'python' },
-        // ],
-        // diagnosticCollectionName: 'python',
-        // revealOutputChannelOn: 4,
-        // initializationOptions: {},
-        // middleware: {},
-    };
-    const python_language_client = new LanguageClient(
-        'python_____',
-        'Python Language Serverfdsgsdfg',
-        serverOptions, 
-        clientOptions
-    );
-    console.log(python_language_client);
-    python_language_client.start();
-
-
 
     /**
      * Update the hover provider.
@@ -132,26 +63,7 @@ export function activate(context: vscode.ExtensionContext) {
             async provideHover(document, position, token) {
                 const range = document.getWordRangeAtPosition(position);
                 const word = document.getText(range);
-                console.log(word)
-                console.log(pylance_api)
-                // Get type info from pylance
-                // const type_info = await python_language_client.sendRequest('textDocument/hover', {
-                if (pylance_api && pylance_api.client && pylance_api.client.isEnabled()) {
-                    const type_info = await pylance_api.client.sendRequest(
-                        'textDocument/hover', {
-                        textDocument: {
-                            uri: document.uri.toString()
-                        },
-                        position: {
-                            line: position.line,
-                            character: position.character
-                        }   
-                    });
-                    console.log(type_info);
-
-                    return new vscode.Hover(`${word}: no type info`);
-                }
-                return new vscode.Hover(`${word}: no type info`);
+                return new vscode.Hover(`${word}`);
             }
         });
     }
